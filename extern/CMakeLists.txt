@@ -54,7 +54,12 @@ set_target_properties(PicoSHA2 PROPERTIES PUBLIC_HEADER "${CMAKE_CURRENT_SOURCE_
 
 # MikkTSpace doesn't have CMakeLists.txt at all either
 add_library(MikkTSpace MikkTSpace/mikktspace.c)
+set_target_properties(MikkTSpace PROPERTIES PUBLIC_HEADER "${CMAKE_CURRENT_SOURCE_DIR}/MikkTSpace/mikktspace.h")
 target_include_directories(MikkTSpace PUBLIC MikkTSpace)
+install(TARGETS MikkTSpace
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+)
 
 set(CESIUM_NATIVE_SPDLOG_INCLUDE_DIR "${CMAKE_CURRENT_LIST_DIR}/spdlog/include" CACHE INTERNAL
     "Include directory for spdlog"

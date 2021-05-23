@@ -29,7 +29,7 @@ target_sources(
 )
 
 target_include_directories(
-    CesiumUtility
+    CesiumMetadata
     SYSTEM PUBLIC
         ${CMAKE_CURRENT_LIST_DIR}/include
         ${CESIUM_NATIVE_RAPIDJSON_INCLUDE_DIR}
@@ -39,6 +39,7 @@ target_include_directories(
 
 target_link_libraries(CesiumMetadata
     PUBLIC
+        CesiumUtility
         GSL
 )
 

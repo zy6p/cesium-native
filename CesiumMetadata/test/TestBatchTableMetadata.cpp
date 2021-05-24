@@ -1,10 +1,10 @@
 #include "CesiumMetadata/BatchTableMetadata.h"
-#include "CesiumMetadata/PropertyView.h"
 #include "CesiumMetadata/JsonPropertyView.h"
+#include "CesiumMetadata/PropertyView.h"
 #include "catch2/catch.hpp"
-#include <rapidjson/document.h>
 #include <filesystem>
 #include <fstream>
+#include <rapidjson/document.h>
 
 namespace {
 struct B3dmHeader {
@@ -28,11 +28,12 @@ std::vector<std::byte> readFile(const std::filesystem::path& fileName) {
 
   return buffer;
 }
-}
+} // namespace
 
-TEST_CASE("Parse Json metadata from batch table") { 
+TEST_CASE("Parse Json metadata from batch table") {
   std::filesystem::path batchedWithJson =
-      std::filesystem::path(CesiumMetadata_TEST_DATA_DIR) / "B3dm" / "batchedWithJson.b3dm";
+      std::filesystem::path(CesiumMetadata_TEST_DATA_DIR) / "B3dm" /
+      "batchedWithJson.b3dm";
   std::vector<std::byte> content = readFile(batchedWithJson);
   B3dmHeader* header = reinterpret_cast<B3dmHeader*>(content.data());
 
@@ -41,7 +42,8 @@ TEST_CASE("Parse Json metadata from batch table") {
       content.data() + offset,
       header->featureTableJsonByteLength);
 
-  offset += header->featureTableJsonByteLength + header->featureTableBinaryByteLength;
+  offset +=
+      header->featureTableJsonByteLength + header->featureTableBinaryByteLength;
   gsl::span<std::byte> batchTableJsonData(
       content.data() + offset,
       header->batchTableJsonByteLength);
@@ -60,7 +62,10 @@ TEST_CASE("Parse Json metadata from batch table") {
   int batchLength = object["BATCH_LENGTH"].GetInt();
 
   // parse batch table
-  auto metadata = CesiumMetadata::BatchTableMetadata::create(batchLength, batchTableJsonData, batchTableBinaryData);
+  auto metadata = CesiumMetadata::BatchTableMetadata::create(
+      batchLength,
+      batchTableJsonData,
+      batchTableBinaryData);
   REQUIRE(metadata != nullptr);
 
   // check ID property
@@ -165,4 +170,3 @@ TEST_CASE("Parse Json metadata from batch table") {
     REQUIRE(i == expected.size());
   }
 }
-

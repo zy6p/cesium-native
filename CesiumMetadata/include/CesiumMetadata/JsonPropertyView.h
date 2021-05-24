@@ -22,4 +22,4 @@ public:
   virtual gsl::span<CesiumUtility::JsonValue> asJsons() = 0;
 };
 
-}
+} // namespace CesiumMetadata

@@ -1,10 +1,10 @@
 #pragma once
 
 #include "CesiumMetadata/Metadata.h"
-#include <cstddef>
 #include <GSL/span>
-#include <memory>
+#include <cstddef>
 #include <map>
+#include <memory>
 
 namespace CesiumMetadata {
 class PropertyView;
@@ -36,4 +36,4 @@ private:
 
   std::map<std::string, std::unique_ptr<PropertyView>> _properties;
 };
-}
+} // namespace CesiumMetadata

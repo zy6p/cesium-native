@@ -58,4 +58,4 @@ public:
 
   virtual gsl::span<double> asDouble() = 0;
 };
-}
+} // namespace CesiumMetadata

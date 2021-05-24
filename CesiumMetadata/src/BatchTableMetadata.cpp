@@ -2,29 +2,27 @@
 #include "CesiumMetadata/PropertyView.h"
 #include "CesiumMetadata/TileFormatJsonPropertyView.h"
 #include "CesiumUtility/JsonValue.h"
-#include <rapidjson/reader.h>
 #include <map>
+#include <rapidjson/reader.h>
 #include <stack>
 #include <string>
 
 namespace {
-enum class JsonType { 
+enum class JsonType {
   None,
   ArrayType,
   ObjectType,
 };
 
-class MetadataJsonHandler : public rapidjson::BaseReaderHandler<rapidjson::UTF8<>, MetadataJsonHandler>  {
+class MetadataJsonHandler
+    : public rapidjson::
+          BaseReaderHandler<rapidjson::UTF8<>, MetadataJsonHandler> {
 public:
-  MetadataJsonHandler() 
-      : type{JsonType::None}, _currentHandler{nullptr}
-  {}
+  MetadataJsonHandler() : type{JsonType::None}, _currentHandler{nullptr} {}
 
-  MetadataJsonHandler(JsonType t) 
-      : type{t}, _currentHandler{nullptr}
-  {}
+  MetadataJsonHandler(JsonType t) : type{t}, _currentHandler{nullptr} {}
 
-  bool Null() { 
+  bool Null() {
     if (_currentHandler) {
       return _currentHandler->Null();
     }
@@ -43,7 +41,7 @@ public:
     return true;
   }
 
-  bool Bool(bool b) { 
+  bool Bool(bool b) {
     if (_currentHandler) {
       return _currentHandler->Bool(b);
     }
@@ -62,7 +60,7 @@ public:
     return true;
   }
 
-  bool Int(int i) { 
+  bool Int(int i) {
     if (_currentHandler) {
       return _currentHandler->Int(i);
     }
@@ -81,7 +79,7 @@ public:
     return true;
   }
 
-  bool Uint(unsigned i) { 
+  bool Uint(unsigned i) {
     if (_currentHandler) {
       return _currentHandler->Uint(i);
     }
@@ -100,7 +98,7 @@ public:
     return true;
   }
 
-  bool Int64(int64_t i) { 
+  bool Int64(int64_t i) {
     if (_currentHandler) {
       return _currentHandler->Int64(i);
     }
@@ -119,7 +117,7 @@ public:
     return true;
   }
 
-  bool Uint64(uint64_t i) { 
+  bool Uint64(uint64_t i) {
     if (_currentHandler) {
       return _currentHandler->Uint64(i);
     }
@@ -138,7 +136,7 @@ public:
     return true;
   }
 
-  bool Double(double d) { 
+  bool Double(double d) {
     if (_currentHandler) {
       return _currentHandler->Double(d);
     }
@@ -195,7 +193,7 @@ public:
     return true;
   }
 
-  bool StartObject() { 
+  bool StartObject() {
     if (type == JsonType::None) {
       type = JsonType::ObjectType;
     } else {
@@ -214,7 +212,7 @@ public:
     return true;
   }
 
-  bool EndObject(rapidjson::SizeType /*memberCount*/) { 
+  bool EndObject(rapidjson::SizeType /*memberCount*/) {
     if (_currentHandler) {
       CesiumUtility::JsonValue value;
       switch (_currentHandler->type) {
@@ -247,7 +245,7 @@ public:
     return true;
   }
 
-  bool StartArray() { 
+  bool StartArray() {
     if (type == JsonType::None) {
       type = JsonType::ArrayType;
     } else {
@@ -256,7 +254,7 @@ public:
     return true;
   }
 
-  bool EndArray(rapidjson::SizeType /*elementCount*/) { 
+  bool EndArray(rapidjson::SizeType /*elementCount*/) {
     if (_currentHandler) {
       CesiumUtility::JsonValue value;
       switch (_currentHandler->type) {
@@ -297,13 +295,12 @@ private:
   MetadataJsonHandler* _currentHandler;
   std::vector<MetadataJsonHandler> _stacks;
 };
-}
+} // namespace
 
 namespace CesiumMetadata {
 BatchTableMetadata::BatchTableMetadata(
-    std::map<std::string, std::unique_ptr<PropertyView>> properties) 
-    : _properties{std::move(properties)} 
-{}
+    std::map<std::string, std::unique_ptr<PropertyView>> properties)
+    : _properties{std::move(properties)} {}
 
 PropertyView* BatchTableMetadata::getProperty(const std::string& propertyName) {
   auto propertyIter = this->_properties.find(propertyName);
@@ -325,16 +322,17 @@ BatchTableMetadata::getProperty(const std::string& propertyName) const {
 }
 
 void BatchTableMetadata::forEachProperty(
-    std::function<void(const std::string& name, PropertyView& propertyView)> fun) 
-{
+    std::function<void(const std::string& name, PropertyView& propertyView)>
+        fun) {
   for (auto& pair : _properties) {
     fun(pair.first, *pair.second);
   }
 }
 
 void BatchTableMetadata::forEachProperty(
-    std::function<void(const std::string& name, const PropertyView& propertyView)> fun) const
-{
+    std::function<
+        void(const std::string& name, const PropertyView& propertyView)> fun)
+    const {
   for (const auto& pair : _properties) {
     fun(pair.first, *pair.second);
   }
@@ -343,14 +341,14 @@ void BatchTableMetadata::forEachProperty(
 std::unique_ptr<BatchTableMetadata> BatchTableMetadata::create(
     size_t batchLength,
     const gsl::span<const std::byte>& batchTableJsonData,
-    const gsl::span<const std::byte>& batchTableBinaryData) 
-{
+    const gsl::span<const std::byte>& batchTableBinaryData) {
   MetadataJsonHandler jsonHandler;
   rapidjson::Reader reader;
   rapidjson::MemoryStream ms(
       reinterpret_cast<const char*>(batchTableJsonData.data()),
       batchTableJsonData.size() * sizeof(rapidjson::UTF8<>::Ch));
-  rapidjson::EncodedInputStream<rapidjson::UTF8<>, rapidjson::MemoryStream> is(ms);
+  rapidjson::EncodedInputStream<rapidjson::UTF8<>, rapidjson::MemoryStream> is(
+      ms);
   reader.Parse(is, jsonHandler);
   if (jsonHandler.type != JsonType::ObjectType) {
     // TODO: report error
@@ -379,4 +377,4 @@ std::unique_ptr<BatchTableMetadata> BatchTableMetadata::create(
   return std::unique_ptr<BatchTableMetadata>(
       new BatchTableMetadata(std::move(propertyViews)));
 }
-}
+} // namespace CesiumMetadata

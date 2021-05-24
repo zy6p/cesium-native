@@ -16,27 +16,23 @@ public:
   }
 
   virtual const PrimitivePropertyView*
-      asPrimitivePropertyView() const noexcept {
+  asPrimitivePropertyView() const noexcept {
     return nullptr;
   }
 
-  virtual ArrayPropertyView* asArrayPropertyView() noexcept {
-    return nullptr;
-  }
+  virtual ArrayPropertyView* asArrayPropertyView() noexcept { return nullptr; }
 
   virtual const ArrayPropertyView* asArrayPropertyView() const noexcept {
     return nullptr;
   }
 
-  virtual JsonPropertyView* asJsonPropertyView() noexcept { 
-    return nullptr;
-  }
+  virtual JsonPropertyView* asJsonPropertyView() noexcept { return nullptr; }
 
   virtual const JsonPropertyView* asJsonPropertyView() const noexcept {
     return nullptr;
   }
 
-  virtual StringPropertyView* asStringPropertyView() noexcept { 
+  virtual StringPropertyView* asStringPropertyView() noexcept {
     return nullptr;
   }
 
@@ -44,4 +40,4 @@ public:
     return nullptr;
   }
 };
-}
+} // namespace CesiumMetadata

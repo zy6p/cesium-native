@@ -1,12 +1,18 @@
 #pragma once
 
 #include "CesiumMetadata/PrimitivePropertyView.h"
+#include "CesiumMetadata/TileFormatDataType.h"
 #include <GSL/span>
+#include <cstddef>
+#include <cstdint>
 
 namespace CesiumMetadata {
 class TileFormatPrimitivePropertyView : public PrimitivePropertyView {
 public:
-  TileFormatPrimitivePropertyView(gsl::span<uint8_t> buffer);
+  TileFormatPrimitivePropertyView(
+      gsl::span<std::byte> bufferView,
+      TileFormatComponentType componentType,
+      size_t batchLength);
 
   virtual gsl::span<const uint8_t> asUint8() const override;
 
@@ -49,5 +55,8 @@ public:
   virtual gsl::span<double> asDouble() override;
 
 private:
+  gsl::span<std::byte> _bufferView;
+  TileFormatComponentType _componentType;
+  size_t _batchLength;
 };
-}
+} // namespace CesiumMetadata

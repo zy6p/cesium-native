@@ -1,5 +1,3 @@
 #include "CesiumMetadata/TileFormatJsonPropertyView.h"
 
-namespace CesiumMetadata {
-
-}
+namespace CesiumMetadata {}

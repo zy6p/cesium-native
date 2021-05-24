@@ -1,6 +1,8 @@
 #include "CesiumMetadata/BatchTableMetadata.h"
 #include "CesiumMetadata/PropertyView.h"
 #include "CesiumMetadata/TileFormatJsonPropertyView.h"
+#include "CesiumMetadata/TileFormatPrimitivePropertyView.h"
+#include "CesiumMetadata/TileFormatDataType.h"
 #include "CesiumUtility/JsonValue.h"
 #include <map>
 #include <rapidjson/reader.h>
@@ -295,6 +297,41 @@ private:
   MetadataJsonHandler* _currentHandler;
   std::vector<MetadataJsonHandler> _stacks;
 };
+
+std::unique_ptr<CesiumMetadata::PropertyView> createBinaryProperty(
+    gsl::span<std::byte> buffer,
+    size_t batchLength,
+    uint64_t offset,
+    const std::string& typeStr,
+    const std::string& componentTypeStr) {
+  CesiumMetadata::TileFormatType type =
+      CesiumMetadata::convertStringToType(typeStr);
+
+  CesiumMetadata::TileFormatComponentType componentType =
+      CesiumMetadata::convertStringToComponentType(componentTypeStr);
+
+  if (type == CesiumMetadata::TileFormatType::None) {
+    return nullptr;
+  }
+
+  if (componentType == CesiumMetadata::TileFormatComponentType::None) {
+    return nullptr; 
+  }
+
+  uint32_t numOfComponents = CesiumMetadata::getNumOfComponents(type);
+  uint32_t componentSize = CesiumMetadata::getComponentSize(componentType);
+  size_t bufferViewSize = batchLength * numOfComponents * componentSize; 
+  if (offset + bufferViewSize >= buffer.size()) {
+    return nullptr;
+  }
+
+  if (type == CesiumMetadata::TileFormatType::Scalar) {
+    return std::make_unique<CesiumMetadata::TileFormatPrimitivePropertyView>(
+        gsl::span<std::byte>(buffer.data() + offset, bufferViewSize), componentType, batchLength);
+  }
+
+  return nullptr;
+}
 } // namespace
 
 namespace CesiumMetadata {
@@ -340,8 +377,8 @@ void BatchTableMetadata::forEachProperty(
 
 std::unique_ptr<BatchTableMetadata> BatchTableMetadata::create(
     size_t batchLength,
-    const gsl::span<const std::byte>& batchTableJsonData,
-    const gsl::span<const std::byte>& batchTableBinaryData) {
+    gsl::span<std::byte> batchTableJsonData,
+    gsl::span<std::byte> batchTableBinaryData) {
   MetadataJsonHandler jsonHandler;
   rapidjson::Reader reader;
   rapidjson::MemoryStream ms(
@@ -367,8 +404,39 @@ std::unique_ptr<BatchTableMetadata> BatchTableMetadata::create(
 
       propertyViews.insert(
           {pair.first, std::make_unique<TileFormatJsonPropertyView>(data)});
-    } else {
+    } else if (pair.second.isObject()) {
       // add binary properties
+      const auto& object = pair.second.getObject();
+      auto offsetIter = object.find("byteOffset");
+      auto componentTypeIter = object.find("componentType");
+      auto typeIter = object.find("type");
+      if (offsetIter == object.end() || componentTypeIter == object.end() || typeIter == object.end()) {
+        // TODO: report error
+        continue;
+      }
+
+      if (!offsetIter->second.isUint64() ||
+          !componentTypeIter->second.isString() ||
+          !typeIter->second.isString()) {
+        // TODO: report error
+        continue;
+      }
+
+      uint64_t offset = offsetIter->second.getUint64();
+      const std::string &componentType = componentTypeIter->second.getString();
+      const std::string& type = typeIter->second.getString();
+      std::unique_ptr<PropertyView> propertyView = createBinaryProperty(
+          batchTableBinaryData,
+          batchLength,
+          offset,
+          type,
+          componentType);
+      if (propertyView) {
+        propertyViews.insert({pair.first, std::move(propertyView)});
+      }
+    } else {
+      // TODO: report error
+      continue;
     }
   }
 

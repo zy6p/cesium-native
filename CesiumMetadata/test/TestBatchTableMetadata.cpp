@@ -1,5 +1,6 @@
 #include "CesiumMetadata/BatchTableMetadata.h"
 #include "CesiumMetadata/JsonPropertyView.h"
+#include "CesiumMetadata/PrimitivePropertyView.h"
 #include "CesiumMetadata/PropertyView.h"
 #include "catch2/catch.hpp"
 #include <filesystem>
@@ -28,38 +29,57 @@ std::vector<std::byte> readFile(const std::filesystem::path& fileName) {
 
   return buffer;
 }
-} // namespace
 
-TEST_CASE("Parse Json metadata from batch table") {
-  std::filesystem::path batchedWithJson =
-      std::filesystem::path(CesiumMetadata_TEST_DATA_DIR) / "B3dm" /
-      "batchedWithJson.b3dm";
-  std::vector<std::byte> content = readFile(batchedWithJson);
-  B3dmHeader* header = reinterpret_cast<B3dmHeader*>(content.data());
+void parseB3dm(
+    std::vector<std::byte>& content,
+    int& batchLength,
+    gsl::span<std::byte>& featureTableJsonData,
+    gsl::span<std::byte>& batchTableJsonData,
+    gsl::span<std::byte>& batchTableBinData) {
+  const B3dmHeader* header = reinterpret_cast<const B3dmHeader*>(content.data());
 
   size_t offset = sizeof(B3dmHeader);
-  gsl::span<std::byte> featureTableJsonData(
+  featureTableJsonData = gsl::span<std::byte>(
       content.data() + offset,
       header->featureTableJsonByteLength);
 
   offset +=
       header->featureTableJsonByteLength + header->featureTableBinaryByteLength;
-  gsl::span<std::byte> batchTableJsonData(
+  batchTableJsonData = gsl::span<std::byte>(
       content.data() + offset,
       header->batchTableJsonByteLength);
 
   offset += header->batchTableJsonByteLength;
-  gsl::span<std::byte> batchTableBinaryData(
+  batchTableBinData = gsl::span<std::byte>(
       content.data() + offset,
       header->batchTableBinaryByteLength);
 
   // find batch length
   rapidjson::Document featureTableJson;
   featureTableJson.Parse(
-      reinterpret_cast<char*>(featureTableJsonData.data()),
+      reinterpret_cast<const char*>(featureTableJsonData.data()),
       featureTableJsonData.size());
   const auto& object = featureTableJson.GetObject();
-  int batchLength = object["BATCH_LENGTH"].GetInt();
+  batchLength = object["BATCH_LENGTH"].GetInt();
+}
+} // namespace
+
+TEST_CASE("Parse Json metadata from batch table") {
+  std::filesystem::path batchedWithJsonFile =
+      std::filesystem::path(CesiumMetadata_TEST_DATA_DIR) / "B3dm" /
+      "batchedWithJson.b3dm";
+  std::vector<std::byte> content = readFile(batchedWithJsonFile);
+
+  int batchLength;
+  gsl::span<std::byte> featureTableJsonData;
+  gsl::span<std::byte> batchTableJsonData;
+  gsl::span<std::byte> batchTableBinaryData;
+  parseB3dm(
+      content,
+      batchLength,
+      featureTableJsonData,
+      batchTableJsonData,
+      batchTableBinaryData);
 
   // parse batch table
   auto metadata = CesiumMetadata::BatchTableMetadata::create(
@@ -168,5 +188,52 @@ TEST_CASE("Parse Json metadata from batch table") {
       ++i;
     }
     REQUIRE(i == expected.size());
+  }
+}
+
+TEST_CASE("Parse binary batch table") {
+  std::filesystem::path batchedWithBinFile =
+      std::filesystem::path(CesiumMetadata_TEST_DATA_DIR) / "B3dm" /
+      "batchedWithBatchTableBinary.b3dm";
+  std::vector<std::byte> content = readFile(batchedWithBinFile);
+
+  int batchLength;
+  gsl::span<std::byte> featureTableJsonData;
+  gsl::span<std::byte> batchTableJsonData;
+  gsl::span<std::byte> batchTableBinaryData;
+  parseB3dm(
+      content,
+      batchLength,
+      featureTableJsonData,
+      batchTableJsonData,
+      batchTableBinaryData);
+
+  // parse batch table
+  auto metadata = CesiumMetadata::BatchTableMetadata::create(
+      batchLength,
+      batchTableJsonData,
+      batchTableBinaryData);
+  REQUIRE(metadata != nullptr);
+
+  // test binary unsigned byte code
+  { 
+    auto code = metadata->getProperty("code");
+    REQUIRE(code != nullptr);
+
+    auto codePrimitive = code->asPrimitivePropertyView();
+    REQUIRE(codePrimitive != nullptr);
+
+    auto codeValues = codePrimitive->asUint8();
+    REQUIRE(codeValues.size() == batchLength);
+
+    for (auto value : codeValues) {
+      REQUIRE(value == 255);
+    }
+  }
+
+  // test binary vec3 cartographic 
+  { 
+    auto cartographic = metadata->getProperty("cartographic");
+    REQUIRE(cartographic == nullptr);
   }
 }

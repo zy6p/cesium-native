@@ -27,8 +27,8 @@ public:
 
   static std::unique_ptr<BatchTableMetadata> create(
       size_t batchLength,
-      const gsl::span<const std::byte>& batchTableJsonData,
-      const gsl::span<const std::byte>& batchTableBinaryData);
+      gsl::span<std::byte> batchTableJsonData,
+      gsl::span<std::byte> batchTableBinaryData);
 
 private:
   BatchTableMetadata(

@@ -14,9 +14,4 @@ TileFormatArrayPropertyView::TileFormatArrayPropertyView(
 size_t TileFormatArrayPropertyView::numOfInstances() const {
   return _batchLength;
 }
-
-gsl::span<const uint8_t>
-TileFormatArrayPropertyView::getInstanceAsUint8(size_t instance) const {
-  return gsl::span<const uint8_t>();
-}
 }

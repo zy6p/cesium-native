@@ -7,7 +7,7 @@ namespace CesiumMetadata {
 class TileFormatJsonPropertyView : public JsonPropertyView {
 public:
   TileFormatJsonPropertyView(std::vector<CesiumUtility::JsonValue> jsons) 
-	  : _jsons{std::move(jsons)}
+	  : _jsons(std::move(jsons))
   {}
 
   virtual gsl::span<const CesiumUtility::JsonValue> asJsons() const override {

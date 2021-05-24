@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <functional>
 
 namespace CesiumMetadata {
 class PropertyView;
@@ -12,5 +13,14 @@ public:
   virtual PropertyView* getProperty(const std::string& propertyName) = 0;
 
   virtual const PropertyView* getProperty(const std::string& propertyName) const = 0;
+
+  virtual void forEachProperty(
+      std::function<
+          void(const std::string& name, PropertyView& propertyView)>) = 0;
+
+  virtual void forEachProperty(
+      std::function<
+          void(const std::string& name, const PropertyView& propertyView)>)
+      const = 0;
 };
 }

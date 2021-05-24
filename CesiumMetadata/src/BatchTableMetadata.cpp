@@ -1,10 +1,11 @@
 #include "CesiumMetadata/BatchTableMetadata.h"
+#include "CesiumMetadata/PropertyView.h"
 #include "CesiumMetadata/TileFormatJsonPropertyView.h"
 #include "CesiumUtility/JsonValue.h"
 #include <rapidjson/reader.h>
-#include <rapidjson/document.h>
 #include <map>
 #include <stack>
+#include <string>
 
 namespace {
 enum class JsonType { 
@@ -17,6 +18,10 @@ class MetadataJsonHandler : public rapidjson::BaseReaderHandler<rapidjson::UTF8<
 public:
   MetadataJsonHandler() 
       : type{JsonType::None}, _currentHandler{nullptr}
+  {}
+
+  MetadataJsonHandler(JsonType t) 
+      : type{t}, _currentHandler{nullptr}
   {}
 
   bool Null() { 
@@ -191,58 +196,94 @@ public:
   }
 
   bool StartObject() { 
-    _currentHandler = &_stacks.emplace(JsonType::ObjectType);
-    return true;
-  }
-
-  bool Key(const Ch* str, rapidjson::SizeType length, bool /*copy*/) {
-    key = std::string(str, length);
-    return true;
-  }
-
-  bool EndObject(rapidjson::SizeType memberCount) { 
-    if (_currentHandler) {
-      switch (_currentHandler->type) {
-		case JsonType::ArrayType:
-          vector.emplace_back(std::move(_currentHandler->vector));
-		  break;
-		case JsonType::ObjectType:
-		  object.insert(
-			  {key,
-			   CesiumUtility::JsonValue(
-				   std::move(_currentHandler->object))});
-		  break;
-		default:
-		  break;
-      }
-      _currentHandler = nullptr;
-      _stacks.pop();
+    if (type == JsonType::None) {
+      type = JsonType::ObjectType;
+    } else {
+      _currentHandler = &_stacks.emplace_back(JsonType::ObjectType);
     }
     return true;
   }
 
-  bool StartArray() { 
-    _currentHandler = &_stacks.emplace(JsonType::ArrayType);
+  bool Key(const Ch* str, rapidjson::SizeType length, bool /*copy*/) {
+    if (_currentHandler) {
+      _currentHandler->key = std::string(str, length);
+    } else {
+      key = std::string(str, length);
+    }
+
     return true;
   }
 
-  bool EndArray(rapidjson::SizeType elementCount) { 
+  bool EndObject(rapidjson::SizeType /*memberCount*/) { 
     if (_currentHandler) {
+      CesiumUtility::JsonValue value;
       switch (_currentHandler->type) {
-		case JsonType::ArrayType:
-          vector.emplace_back(std::move(_currentHandler->vector));
-		  break;
-		case JsonType::ObjectType:
-		  object.insert(
-			  {key,
-			   CesiumUtility::JsonValue(
-				   std::move(_currentHandler->object))});
-		  break;
-		default:
-		  break;
+      case JsonType::ArrayType:
+        value = CesiumUtility::JsonValue(std::move(_currentHandler->vector));
+        break;
+      case JsonType::ObjectType:
+        value = CesiumUtility::JsonValue(std::move(_currentHandler->object));
+        break;
+      default:
+        break;
       }
+
+      switch (type) {
+      case JsonType::ArrayType:
+        vector.emplace_back(std::move(value));
+        break;
+      case JsonType::ObjectType:
+        object.insert({key, std::move(value)});
+        key.clear();
+        break;
+      default:
+        break;
+      }
+
       _currentHandler = nullptr;
-      _stacks.pop();
+      _stacks.pop_back();
+    }
+
+    return true;
+  }
+
+  bool StartArray() { 
+    if (type == JsonType::None) {
+      type = JsonType::ArrayType;
+    } else {
+      _currentHandler = &_stacks.emplace_back(JsonType::ArrayType);
+    }
+    return true;
+  }
+
+  bool EndArray(rapidjson::SizeType /*elementCount*/) { 
+    if (_currentHandler) {
+      CesiumUtility::JsonValue value;
+      switch (_currentHandler->type) {
+      case JsonType::ArrayType:
+        value = CesiumUtility::JsonValue(std::move(_currentHandler->vector));
+        break;
+      case JsonType::ObjectType:
+        value = CesiumUtility::JsonValue(std::move(_currentHandler->object));
+        break;
+      default:
+        break;
+      }
+
+      switch (type) {
+      case JsonType::ArrayType:
+        vector.emplace_back(std::move(value));
+        break;
+      case JsonType::ObjectType:
+        object.insert({key, std::move(value)});
+        key.clear();
+        break;
+      default:
+        break;
+      }
+
+      _currentHandler = nullptr;
+      _stacks.pop_back();
     }
     return true;
   }
@@ -253,12 +294,8 @@ public:
   std::vector<CesiumUtility::JsonValue> vector;
 
 private:
-  MetadataJsonHandler(JsonType t) 
-      : type{t}, _currentHandler{nullptr}
-  {}
-
   MetadataJsonHandler* _currentHandler;
-  std::stack<MetadataJsonHandler> _stacks;
+  std::vector<MetadataJsonHandler> _stacks;
 };
 }
 
@@ -285,6 +322,22 @@ BatchTableMetadata::getProperty(const std::string& propertyName) const {
   }
 
   return propertyIter->second.get();
+}
+
+void BatchTableMetadata::forEachProperty(
+    std::function<void(const std::string& name, PropertyView& propertyView)> fun) 
+{
+  for (auto& pair : _properties) {
+    fun(pair.first, *pair.second);
+  }
+}
+
+void BatchTableMetadata::forEachProperty(
+    std::function<void(const std::string& name, const PropertyView& propertyView)> fun) const
+{
+  for (const auto& pair : _properties) {
+    fun(pair.first, *pair.second);
+  }
 }
 
 std::unique_ptr<BatchTableMetadata> BatchTableMetadata::create(
@@ -315,13 +368,13 @@ std::unique_ptr<BatchTableMetadata> BatchTableMetadata::create(
       }
 
       propertyViews.insert(
-          {pair.first,
-           std::make_unique<TileFormatJsonPropertyView>(
-               pair.second.getArray())});
+          {pair.first, std::make_unique<TileFormatJsonPropertyView>(data)});
     } else {
       // add binary properties
     }
   }
+
+  (void)(batchTableBinaryData);
 
   return std::unique_ptr<BatchTableMetadata>(
       new BatchTableMetadata(std::move(propertyViews)));

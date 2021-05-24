@@ -8,6 +8,7 @@ set(cesium_native_targets
     CesiumAsync
     CesiumGeometry
     CesiumGeospatial
+    CesiumMetadata
     CesiumGltf
     CesiumGltfReader
     CesiumGltfWriter

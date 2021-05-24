@@ -1,13 +1,14 @@
 #pragma once
 
 #include "CesiumMetadata/Metadata.h"
-#include "CesiumMetadata/PropertyView.h"
 #include <cstddef>
 #include <GSL/span>
 #include <memory>
 #include <map>
 
 namespace CesiumMetadata {
+class PropertyView;
+
 class BatchTableMetadata : public Metadata {
 public:
   virtual PropertyView* getProperty(const std::string& propertyName) override;
@@ -15,7 +16,16 @@ public:
   virtual const PropertyView*
   getProperty(const std::string& propertyName) const override;
 
-  std::unique_ptr<BatchTableMetadata> create(
+  virtual void forEachProperty(
+      std::function<void(const std::string& name, PropertyView& propertyView)>)
+      override;
+
+  virtual void forEachProperty(
+      std::function<
+          void(const std::string& name, const PropertyView& propertyView)>)
+      const override;
+
+  static std::unique_ptr<BatchTableMetadata> create(
       size_t batchLength,
       const gsl::span<const std::byte>& batchTableJsonData,
       const gsl::span<const std::byte>& batchTableBinaryData);

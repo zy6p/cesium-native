@@ -5,7 +5,7 @@ TileFormatArrayPropertyView::TileFormatArrayPropertyView(
     gsl::span<std::byte> bufferView,
     TileFormatType type,
     TileFormatComponentType componentType,
-    size_t batchLength) 
+    size_t batchLength)
     : _bufferView{bufferView},
       _type{type},
       _componentType{componentType},
@@ -14,4 +14,4 @@ TileFormatArrayPropertyView::TileFormatArrayPropertyView(
 size_t TileFormatArrayPropertyView::numOfInstances() const {
   return _batchLength;
 }
-}
+} // namespace CesiumMetadata

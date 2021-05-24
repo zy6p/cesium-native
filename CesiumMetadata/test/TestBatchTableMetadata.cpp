@@ -36,7 +36,8 @@ void parseB3dm(
     gsl::span<std::byte>& featureTableJsonData,
     gsl::span<std::byte>& batchTableJsonData,
     gsl::span<std::byte>& batchTableBinData) {
-  const B3dmHeader* header = reinterpret_cast<const B3dmHeader*>(content.data());
+  const B3dmHeader* header =
+      reinterpret_cast<const B3dmHeader*>(content.data());
 
   size_t offset = sizeof(B3dmHeader);
   featureTableJsonData = gsl::span<std::byte>(
@@ -216,7 +217,7 @@ TEST_CASE("Parse binary batch table") {
   REQUIRE(metadata != nullptr);
 
   // test binary unsigned byte code
-  { 
+  {
     auto code = metadata->getProperty("code");
     REQUIRE(code != nullptr);
 
@@ -231,8 +232,8 @@ TEST_CASE("Parse binary batch table") {
     }
   }
 
-  // test binary vec3 cartographic 
-  { 
+  // test binary vec3 cartographic
+  {
     auto cartographic = metadata->getProperty("cartographic");
     REQUIRE(cartographic == nullptr);
   }

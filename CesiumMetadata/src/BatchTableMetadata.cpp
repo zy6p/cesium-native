@@ -1,8 +1,8 @@
 #include "CesiumMetadata/BatchTableMetadata.h"
 #include "CesiumMetadata/PropertyView.h"
+#include "CesiumMetadata/TileFormatDataType.h"
 #include "CesiumMetadata/TileFormatJsonPropertyView.h"
 #include "CesiumMetadata/TileFormatPrimitivePropertyView.h"
-#include "CesiumMetadata/TileFormatDataType.h"
 #include "CesiumUtility/JsonValue.h"
 #include <map>
 #include <rapidjson/reader.h>
@@ -315,19 +315,21 @@ std::unique_ptr<CesiumMetadata::PropertyView> createBinaryProperty(
   }
 
   if (componentType == CesiumMetadata::TileFormatComponentType::None) {
-    return nullptr; 
+    return nullptr;
   }
 
   uint32_t numOfComponents = CesiumMetadata::getNumOfComponents(type);
   uint32_t componentSize = CesiumMetadata::getComponentSize(componentType);
-  size_t bufferViewSize = batchLength * numOfComponents * componentSize; 
+  size_t bufferViewSize = batchLength * numOfComponents * componentSize;
   if (offset + bufferViewSize >= buffer.size()) {
     return nullptr;
   }
 
   if (type == CesiumMetadata::TileFormatType::Scalar) {
     return std::make_unique<CesiumMetadata::TileFormatPrimitivePropertyView>(
-        gsl::span<std::byte>(buffer.data() + offset, bufferViewSize), componentType, batchLength);
+        gsl::span<std::byte>(buffer.data() + offset, bufferViewSize),
+        componentType,
+        batchLength);
   }
 
   return nullptr;
@@ -410,7 +412,8 @@ std::unique_ptr<BatchTableMetadata> BatchTableMetadata::create(
       auto offsetIter = object.find("byteOffset");
       auto componentTypeIter = object.find("componentType");
       auto typeIter = object.find("type");
-      if (offsetIter == object.end() || componentTypeIter == object.end() || typeIter == object.end()) {
+      if (offsetIter == object.end() || componentTypeIter == object.end() ||
+          typeIter == object.end()) {
         // TODO: report error
         continue;
       }
@@ -423,7 +426,7 @@ std::unique_ptr<BatchTableMetadata> BatchTableMetadata::create(
       }
 
       uint64_t offset = offsetIter->second.getUint64();
-      const std::string &componentType = componentTypeIter->second.getString();
+      const std::string& componentType = componentTypeIter->second.getString();
       const std::string& type = typeIter->second.getString();
       std::unique_ptr<PropertyView> propertyView = createBinaryProperty(
           batchTableBinaryData,

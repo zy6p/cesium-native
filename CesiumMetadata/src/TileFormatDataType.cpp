@@ -99,4 +99,4 @@ uint32_t getComponentSize(TileFormatComponentType componentType) {
     return 0;
   }
 }
-}
+} // namespace CesiumMetadata

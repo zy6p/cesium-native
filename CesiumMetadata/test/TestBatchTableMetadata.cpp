@@ -216,6 +216,151 @@ TEST_CASE(
       batchTableJsonData,
       batchTableBinaryData);
   REQUIRE(metadata != nullptr);
+
+  // check ID property
+  {
+    auto id = metadata->getProperty("id");
+    REQUIRE(id != nullptr);
+
+    auto idJson = id->asJsonPropertyView();
+    REQUIRE(idJson != nullptr);
+
+    uint64_t expectedValue = 0;
+    for (const auto& value : idJson->asJsons()) {
+      REQUIRE(value.isUint64());
+      REQUIRE(value.getUint64() == expectedValue);
+      ++expectedValue;
+    }
+
+    REQUIRE(expectedValue == batchLength);
+  }
+
+  // check height
+  {
+    auto height = metadata->getProperty("Height");
+    REQUIRE(height != nullptr);
+
+    auto heightJson = height->asJsonPropertyView();
+    REQUIRE(heightJson != nullptr);
+
+    std::vector<double> expected = {
+        6.155801922082901,
+        13.410263679921627,
+        6.1022464875131845,
+        6.742499912157655,
+        6.869888566434383,
+        10.701326800510287,
+        6.163868889212608,
+        12.224825594574213,
+        12.546202838420868,
+        7.632075032219291};
+    size_t i = 0;
+    for (const auto& value : heightJson->asJsons()) {
+      REQUIRE(value.isDouble());
+      REQUIRE(value.getDouble() == Approx(expected[i]));
+      ++i;
+    }
+    REQUIRE(i == expected.size());
+  }
+
+  // check latitude
+  {
+    auto latitude = metadata->getProperty("Latitude");
+    REQUIRE(latitude != nullptr);
+
+    auto latitudeJson = latitude->asJsonPropertyView();
+    REQUIRE(latitudeJson != nullptr);
+
+    std::vector<double> expected = {
+        0.698874,
+        0.6988615321420496,
+        0.6988736012180136,
+        0.6988863062831799,
+        0.6988864387845588,
+        0.6988814788613282,
+        0.6988618972526105,
+        0.6988590050687061,
+        0.6988690935212543,
+        0.6988854945986224};
+    size_t i = 0;
+    for (const auto& value : latitudeJson->asJsons()) {
+      REQUIRE(value.isDouble());
+      REQUIRE(value.getDouble() == Approx(expected[i]));
+      ++i;
+    }
+    REQUIRE(i == expected.size());
+  }
+
+  // check longitude
+  {
+    auto longitude = metadata->getProperty("Longitude");
+    REQUIRE(longitude != nullptr);
+
+    auto longitudeJson = longitude->asJsonPropertyView();
+    REQUIRE(longitudeJson != nullptr);
+
+    std::vector<double> expected = {
+        -1.31968,
+        -1.3196832683949145,
+        -1.3196637662080655,
+        -1.3196656317210846,
+        -1.319679266890895,
+        -1.319693717777418,
+        -1.3196607462778132,
+        -1.3196940116311096,
+        -1.319683648959897,
+        -1.3196959060375169};
+    size_t i = 0;
+    for (const auto& value : longitudeJson->asJsons()) {
+      REQUIRE(value.isDouble());
+      REQUIRE(value.getDouble() == Approx(expected[i]));
+      ++i;
+    }
+    REQUIRE(i == expected.size());
+  }
+
+  // test info property
+  {
+    auto info = metadata->getProperty("info");
+    REQUIRE(info != nullptr);
+
+    auto infoJson = info->asJsonPropertyView();
+    REQUIRE(infoJson != nullptr);
+
+    auto values = infoJson->asJsons();
+    REQUIRE(values.size() == batchLength);
+    size_t i = 0;
+    for (const auto& v : values) {
+      REQUIRE(v.isObject());
+      const auto& object = v.getObject();
+      REQUIRE(
+          object.at("name").getString() == ("building" + std::to_string(i)));
+      REQUIRE(object.at("year").getUint64() == i);
+      ++i;
+    }
+  }
+
+  // test room array of array
+  {
+    auto rooms = metadata->getProperty("rooms");
+    REQUIRE(rooms != nullptr);
+
+    auto roomJson = rooms->asJsonPropertyView();
+    REQUIRE(roomJson != nullptr);
+
+    auto values = roomJson->asJsons();
+    REQUIRE(values.size() == batchLength);
+    size_t i = 0;
+    for (const auto& v : values) {
+      REQUIRE(v.isArray());
+      const auto& vector = v.getArray();
+      REQUIRE(vector.size() == 3);
+      REQUIRE(vector[0].getString() == ("room" + std::to_string(i) + "_a"));
+      REQUIRE(vector[1].getString() == ("room" + std::to_string(i) + "_b"));
+      REQUIRE(vector[2].getString() == ("room" + std::to_string(i) + "_c"));
+      ++i;
+    }
+  }
 }
 
 TEST_CASE("Parse binary batch table") {

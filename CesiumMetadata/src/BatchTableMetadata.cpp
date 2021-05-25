@@ -229,20 +229,28 @@ public:
         break;
       }
 
-      switch (type) {
+      _currentHandler = nullptr;
+      _stacks.pop_back();
+
+      MetadataJsonHandler* parent;
+      if (!_stacks.empty()) {
+        parent = &_stacks.back();
+        _currentHandler = parent;
+      } else {
+        parent = this;
+      }
+
+      switch (parent->type) {
       case JsonType::ArrayType:
-        vector.emplace_back(std::move(value));
+        parent->vector.emplace_back(std::move(value));
         break;
       case JsonType::ObjectType:
-        object.insert({key, std::move(value)});
-        key.clear();
+        parent->object.insert({parent->key, std::move(value)});
+        parent->key.clear();
         break;
       default:
         break;
       }
-
-      _currentHandler = nullptr;
-      _stacks.pop_back();
     }
 
     return true;
@@ -271,20 +279,28 @@ public:
         break;
       }
 
-      switch (type) {
+      _currentHandler = nullptr;
+      _stacks.pop_back();
+
+      MetadataJsonHandler* parent;
+      if (!_stacks.empty()) {
+        parent = &_stacks.back();
+        _currentHandler = parent;
+      } else {
+        parent = this;
+      }
+
+      switch (parent->type) {
       case JsonType::ArrayType:
-        vector.emplace_back(std::move(value));
+        parent->vector.emplace_back(std::move(value));
         break;
       case JsonType::ObjectType:
-        object.insert({key, std::move(value)});
-        key.clear();
+        parent->object.insert({parent->key, std::move(value)});
+        parent->key.clear();
         break;
       default:
         break;
       }
-
-      _currentHandler = nullptr;
-      _stacks.pop_back();
     }
     return true;
   }

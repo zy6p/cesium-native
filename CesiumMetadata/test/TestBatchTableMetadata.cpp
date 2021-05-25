@@ -68,7 +68,7 @@ void parseB3dm(
 
 TEST_CASE("Parse Json metadata from batch table") {
   std::filesystem::path batchedWithJsonFile =
-      std::filesystem::path(CesiumMetadata_TEST_DATA_DIR) / "B3dm" /
+      std::filesystem::path(CesiumMetadata_TEST_DATA_DIR) / "Batchtable" /
       "batchedWithJson.b3dm";
   std::vector<std::byte> content = readFile(batchedWithJsonFile);
 
@@ -196,7 +196,7 @@ TEST_CASE("Parse Json metadata from batch table") {
 TEST_CASE(
     "Parse batch table with nested string and object array json property") {
   std::filesystem::path batchedWithBinFile =
-      std::filesystem::path(CesiumMetadata_TEST_DATA_DIR) / "B3dm" /
+      std::filesystem::path(CesiumMetadata_TEST_DATA_DIR) / "Batchtable" /
       "batchedWithBatchTable.b3dm";
   std::vector<std::byte> content = readFile(batchedWithBinFile);
 
@@ -365,7 +365,7 @@ TEST_CASE(
 
 TEST_CASE("Parse binary batch table") {
   std::filesystem::path batchedWithBinFile =
-      std::filesystem::path(CesiumMetadata_TEST_DATA_DIR) / "B3dm" /
+      std::filesystem::path(CesiumMetadata_TEST_DATA_DIR) / "Batchtable" /
       "batchedWithBatchTableBinary.b3dm";
   std::vector<std::byte> content = readFile(batchedWithBinFile);
 

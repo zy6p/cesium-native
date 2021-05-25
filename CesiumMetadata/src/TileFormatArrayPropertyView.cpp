@@ -171,6 +171,7 @@ TileFormatArrayPropertyView::getInstanceAsInt32(size_t instance) {
 
 gsl::span<const uint64_t>
 TileFormatArrayPropertyView::getInstanceAsUint64(size_t instance) const {
+  (void)(instance);
   assert(instance < _batchLength);
   return gsl::span<const uint64_t>();
 }
@@ -183,12 +184,14 @@ TileFormatArrayPropertyView::getInstanceAsUint64(size_t instance) {
 
 gsl::span<const int64_t>
 TileFormatArrayPropertyView::getInstanceAsInt64(size_t instance) const {
+  (void)(instance);
   assert(instance < _batchLength);
   return gsl::span<const int64_t>();
 }
 
 gsl::span<int64_t>
 TileFormatArrayPropertyView::getInstanceAsInt64(size_t instance) {
+  (void)(instance);
   assert(instance < _batchLength);
   return gsl::span<int64_t>();
 }

@@ -3,6 +3,7 @@
 #include "CesiumMetadata/TileFormatDataType.h"
 #include "CesiumMetadata/TileFormatJsonPropertyView.h"
 #include "CesiumMetadata/TileFormatPrimitivePropertyView.h"
+#include "CesiumMetadata/TileFormatArrayPropertyView.h"
 #include "CesiumUtility/JsonValue.h"
 #include <map>
 #include <rapidjson/reader.h>
@@ -332,7 +333,11 @@ std::unique_ptr<CesiumMetadata::PropertyView> createBinaryProperty(
         batchLength);
   }
 
-  return nullptr;
+  return std::make_unique<CesiumMetadata::TileFormatArrayPropertyView>(
+      gsl::span<std::byte>(buffer.data() + offset, bufferViewSize),
+      type,
+      componentType,
+      batchLength);
 }
 } // namespace
 
@@ -442,8 +447,6 @@ std::unique_ptr<BatchTableMetadata> BatchTableMetadata::create(
       continue;
     }
   }
-
-  (void)(batchTableBinaryData);
 
   return std::unique_ptr<BatchTableMetadata>(
       new BatchTableMetadata(std::move(propertyViews)));

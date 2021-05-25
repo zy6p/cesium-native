@@ -1,6 +1,7 @@
 #include "CesiumMetadata/BatchTableMetadata.h"
 #include "CesiumMetadata/JsonPropertyView.h"
 #include "CesiumMetadata/PrimitivePropertyView.h"
+#include "CesiumMetadata/ArrayPropertyView.h"
 #include "CesiumMetadata/PropertyView.h"
 #include "catch2/catch.hpp"
 #include <filesystem>
@@ -235,6 +236,36 @@ TEST_CASE("Parse binary batch table") {
   // test binary vec3 cartographic
   {
     auto cartographic = metadata->getProperty("cartographic");
-    REQUIRE(cartographic == nullptr);
+    REQUIRE(cartographic != nullptr);
+
+    auto cartographicArray = cartographic->asArrayPropertyView();
+    REQUIRE(cartographicArray != nullptr);
+
+    auto size = cartographicArray->numOfInstances();
+    REQUIRE(size == batchLength);
+
+    // clang-format off
+    std::vector<double> expected{ 
+        -1.31968, 0.698874, 6.155801922082901,
+        -1.3196832683949145, 0.6988615321420496, 13.410263679921627,
+        -1.3196637662080655, 0.6988736012180136, 6.1022464875131845,
+        -1.3196656317210846, 0.6988863062831799, 6.742499912157655,
+        -1.319679266890895,  0.6988864387845588, 6.869888566434383,
+        -1.319693717777418, 0.6988814788613282, 10.701326800510287,
+        -1.3196607462778132, 0.6988618972526105, 6.163868889212608,
+        -1.3196940116311096, 0.6988590050687061, 12.224825594574213,
+        -1.319683648959897, 0.6988690935212543, 12.546202838420868,
+        -1.3196959060375169, 0.6988854945986224, 7.632075032219291
+    };
+    // clang-format on
+
+    for (size_t i = 0; i < size; ++i) {
+      gsl::span<const double> values =
+          cartographicArray->getInstanceAsDouble(i);
+      REQUIRE(values.size() == 3);
+      REQUIRE(values[0] == Approx(expected[i * 3]));
+      REQUIRE(values[1] == Approx(expected[i * 3 + 1]));
+      REQUIRE(values[2] == Approx(expected[i * 3 + 2]));
+    }
   }
 }

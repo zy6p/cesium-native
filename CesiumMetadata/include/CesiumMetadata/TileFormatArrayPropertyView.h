@@ -72,5 +72,6 @@ private:
   TileFormatComponentType _componentType;
   size_t _batchLength;
   size_t _componentCount;
+  size_t _stride;
 };
 } // namespace CesiumMetadata

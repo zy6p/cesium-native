@@ -1,7 +1,7 @@
 #pragma once
 
 #include "CesiumMetadata/PropertyView.h"
-#include <GSL/span>
+#include <gsl/span>
 #include <cstdint>
 
 namespace CesiumMetadata {

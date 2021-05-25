@@ -193,6 +193,30 @@ TEST_CASE("Parse Json metadata from batch table") {
   }
 }
 
+TEST_CASE("Parse batch table with nested string and object array json property") {
+  std::filesystem::path batchedWithBinFile =
+      std::filesystem::path(CesiumMetadata_TEST_DATA_DIR) / "B3dm" /
+      "batchedWithBatchTable.b3dm";
+  std::vector<std::byte> content = readFile(batchedWithBinFile);
+
+  int batchLength;
+  gsl::span<std::byte> featureTableJsonData;
+  gsl::span<std::byte> batchTableJsonData;
+  gsl::span<std::byte> batchTableBinaryData;
+  parseB3dm(
+      content,
+      batchLength,
+      featureTableJsonData,
+      batchTableJsonData,
+      batchTableBinaryData);
+
+  auto metadata = CesiumMetadata::BatchTableMetadata::create(
+      batchLength,
+      batchTableJsonData,
+      batchTableBinaryData);
+  REQUIRE(metadata != nullptr);
+}
+
 TEST_CASE("Parse binary batch table") {
   std::filesystem::path batchedWithBinFile =
       std::filesystem::path(CesiumMetadata_TEST_DATA_DIR) / "B3dm" /

@@ -2,8 +2,8 @@
 
 #include "CesiumMetadata/ArrayPropertyView.h"
 #include "CesiumMetadata/TileFormatDataType.h"
-#include <GSL/span>
 #include <cstddef>
+#include <gsl/span>
 
 namespace CesiumMetadata {
 class TileFormatArrayPropertyView : public ArrayPropertyView {

@@ -2,9 +2,9 @@
 
 #include "CesiumMetadata/PrimitivePropertyView.h"
 #include "CesiumMetadata/TileFormatDataType.h"
-#include <GSL/span>
 #include <cstddef>
 #include <cstdint>
+#include <gsl/span>
 
 namespace CesiumMetadata {
 class TileFormatPrimitivePropertyView : public PrimitivePropertyView {

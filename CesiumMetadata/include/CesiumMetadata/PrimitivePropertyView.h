@@ -1,8 +1,8 @@
 #pragma once
 
 #include "CesiumMetadata/PropertyView.h"
-#include <GSL/span>
 #include <cstdint>
+#include <gsl/span>
 
 namespace CesiumMetadata {
 class PrimitivePropertyView : public PropertyView {

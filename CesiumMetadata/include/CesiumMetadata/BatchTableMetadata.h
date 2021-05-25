@@ -1,8 +1,8 @@
 #pragma once
 
 #include "CesiumMetadata/Metadata.h"
-#include <GSL/span>
 #include <cstddef>
+#include <gsl/span>
 #include <map>
 #include <memory>
 

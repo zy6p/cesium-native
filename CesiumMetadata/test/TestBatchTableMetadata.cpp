@@ -193,7 +193,8 @@ TEST_CASE("Parse Json metadata from batch table") {
   }
 }
 
-TEST_CASE("Parse batch table with nested string and object array json property") {
+TEST_CASE(
+    "Parse batch table with nested string and object array json property") {
   std::filesystem::path batchedWithBinFile =
       std::filesystem::path(CesiumMetadata_TEST_DATA_DIR) / "B3dm" /
       "batchedWithBatchTable.b3dm";

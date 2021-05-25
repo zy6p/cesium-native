@@ -1,9 +1,6 @@
 #include "CesiumMetadata\TileFormatArrayPropertyView.h"
 #include <cassert>
 
-namespace {
-}
-
 namespace CesiumMetadata {
 TileFormatArrayPropertyView::TileFormatArrayPropertyView(
     gsl::span<std::byte> bufferView,

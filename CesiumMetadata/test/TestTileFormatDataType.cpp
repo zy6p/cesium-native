@@ -1,5 +1,5 @@
-#include "catch2/catch.hpp"
 #include "CesiumMetadata/TileFormatDataType.h"
+#include "catch2/catch.hpp"
 
 TEST_CASE("Convert string to type") {
   REQUIRE(
@@ -90,7 +90,8 @@ TEST_CASE("Get component size") {
 
   REQUIRE(
       CesiumMetadata::getComponentSize(
-          CesiumMetadata::TileFormatComponentType::UnsignedByte) == sizeof(uint8_t));
+          CesiumMetadata::TileFormatComponentType::UnsignedByte) ==
+      sizeof(uint8_t));
 
   REQUIRE(
       CesiumMetadata::getComponentSize(
@@ -98,7 +99,8 @@ TEST_CASE("Get component size") {
 
   REQUIRE(
       CesiumMetadata::getComponentSize(
-          CesiumMetadata::TileFormatComponentType::UnsignedShort) == sizeof(uint16_t));
+          CesiumMetadata::TileFormatComponentType::UnsignedShort) ==
+      sizeof(uint16_t));
 
   REQUIRE(
       CesiumMetadata::getComponentSize(
@@ -106,7 +108,8 @@ TEST_CASE("Get component size") {
 
   REQUIRE(
       CesiumMetadata::getComponentSize(
-          CesiumMetadata::TileFormatComponentType::UnsignedInt) == sizeof(uint32_t));
+          CesiumMetadata::TileFormatComponentType::UnsignedInt) ==
+      sizeof(uint32_t));
 
   REQUIRE(
       CesiumMetadata::getComponentSize(

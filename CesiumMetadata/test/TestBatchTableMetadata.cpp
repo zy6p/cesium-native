@@ -1,7 +1,7 @@
+#include "CesiumMetadata/ArrayPropertyView.h"
 #include "CesiumMetadata/BatchTableMetadata.h"
 #include "CesiumMetadata/JsonPropertyView.h"
 #include "CesiumMetadata/PrimitivePropertyView.h"
-#include "CesiumMetadata/ArrayPropertyView.h"
 #include "CesiumMetadata/PropertyView.h"
 #include "catch2/catch.hpp"
 #include <filesystem>

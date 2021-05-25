@@ -1,9 +1,9 @@
 #include "CesiumMetadata/BatchTableMetadata.h"
 #include "CesiumMetadata/PropertyView.h"
+#include "CesiumMetadata/TileFormatArrayPropertyView.h"
 #include "CesiumMetadata/TileFormatDataType.h"
 #include "CesiumMetadata/TileFormatJsonPropertyView.h"
 #include "CesiumMetadata/TileFormatPrimitivePropertyView.h"
-#include "CesiumMetadata/TileFormatArrayPropertyView.h"
 #include "CesiumUtility/JsonValue.h"
 #include <map>
 #include <rapidjson/reader.h>

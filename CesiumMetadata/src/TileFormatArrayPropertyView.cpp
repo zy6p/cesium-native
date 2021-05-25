@@ -24,7 +24,8 @@ TileFormatArrayPropertyView::getInstanceAsUint8(size_t instance) const {
   assert(instance < _batchLength);
   if (_componentType == TileFormatComponentType::UnsignedByte) {
     return gsl::span<const uint8_t>(
-        reinterpret_cast<const uint8_t*>(_bufferView.data() + instance * _stride),
+        reinterpret_cast<const uint8_t*>(
+            _bufferView.data() + instance * _stride),
         _componentCount);
   }
 
@@ -48,7 +49,8 @@ TileFormatArrayPropertyView::getInstanceAsInt8(size_t instance) const {
   assert(instance < _batchLength);
   if (_componentType == TileFormatComponentType::Byte) {
     return gsl::span<const int8_t>(
-        reinterpret_cast<const int8_t*>(_bufferView.data() + instance * _stride),
+        reinterpret_cast<const int8_t*>(
+            _bufferView.data() + instance * _stride),
         _componentCount);
   }
 
@@ -72,7 +74,8 @@ TileFormatArrayPropertyView::getInstanceAsUint16(size_t instance) const {
   assert(instance < _batchLength);
   if (_componentType == TileFormatComponentType::UnsignedShort) {
     return gsl::span<const uint16_t>(
-        reinterpret_cast<const uint16_t*>(_bufferView.data() + instance * _stride),
+        reinterpret_cast<const uint16_t*>(
+            _bufferView.data() + instance * _stride),
         _componentCount);
   }
 
@@ -96,7 +99,8 @@ TileFormatArrayPropertyView::getInstanceAsInt16(size_t instance) const {
   assert(instance < _batchLength);
   if (_componentType == TileFormatComponentType::Short) {
     return gsl::span<const int16_t>(
-        reinterpret_cast<const int16_t*>(_bufferView.data() + instance * _stride),
+        reinterpret_cast<const int16_t*>(
+            _bufferView.data() + instance * _stride),
         _componentCount);
   }
 
@@ -120,7 +124,8 @@ TileFormatArrayPropertyView::getInstanceAsUint32(size_t instance) const {
   assert(instance < _batchLength);
   if (_componentType == TileFormatComponentType::UnsignedInt) {
     return gsl::span<const uint32_t>(
-        reinterpret_cast<const uint32_t*>(_bufferView.data() + instance * _stride),
+        reinterpret_cast<const uint32_t*>(
+            _bufferView.data() + instance * _stride),
         _componentCount);
   }
 
@@ -144,7 +149,8 @@ TileFormatArrayPropertyView::getInstanceAsInt32(size_t instance) const {
   assert(instance < _batchLength);
   if (_componentType == TileFormatComponentType::Int) {
     return gsl::span<const int32_t>(
-        reinterpret_cast<const int32_t*>(_bufferView.data() + instance * _stride),
+        reinterpret_cast<const int32_t*>(
+            _bufferView.data() + instance * _stride),
         _componentCount);
   }
 
@@ -216,7 +222,8 @@ TileFormatArrayPropertyView::getInstanceAsDouble(size_t instance) const {
   assert(instance < _batchLength);
   if (_componentType == TileFormatComponentType::Double) {
     return gsl::span<const double>(
-        reinterpret_cast<const double*>(_bufferView.data() + instance * _stride),
+        reinterpret_cast<const double*>(
+            _bufferView.data() + instance * _stride),
         _componentCount);
   }
 

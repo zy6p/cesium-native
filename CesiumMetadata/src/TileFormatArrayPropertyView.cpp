@@ -1,4 +1,4 @@
-#include "CesiumMetadata\TileFormatArrayPropertyView.h"
+#include "CesiumMetadata/TileFormatArrayPropertyView.h"
 #include <cassert>
 
 namespace CesiumMetadata {

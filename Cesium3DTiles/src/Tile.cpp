@@ -155,8 +155,9 @@ void Tile::loadContent() {
   std::set<std::string> customMaskNames;
 
   // TODO: determine the GlobeRectangle for non-region based bounding volumes
-  const CesiumGeospatial::GlobeRectangle* pRectangle =
-      Cesium3DTiles::Impl::obtainGlobeRectangle(&this->getBoundingVolume());
+  //const CesiumGeospatial::GlobeRectangle* pRectangle =
+  //    Cesium3DTiles::Impl::obtainGlobeRectangle(&this->getBoundingVolume());
+  const std::optional<GlobeRectangle> pRectangle = getGlobeRectangle(this->getBoundingVolume());
 
   if (pRectangle && tileset.supportsRasterOverlays()) {
     // Map overlays to this tile.
@@ -345,8 +346,9 @@ void Tile::loadContent() {
                 // TODO factor out into helper function
                 // rasterize culling polygons into the tile's bounding rectangle
 
-                const CesiumGeospatial::GlobeRectangle* pRectangle =
-                    Cesium3DTiles::Impl::obtainGlobeRectangle(&boundingVolume);
+                //const CesiumGeospatial::GlobeRectangle* pRectangle =
+                //    Cesium3DTiles::Impl::obtainGlobeRectangle(&boundingVolume);
+                const std::optional<GlobeRectangle> pRectangle = getGlobeRectangle(boundingVolume);
 
                 if (!customMaskNames.empty() && pRectangle) {
                   double rectangleWidth = pRectangle->computeWidth();
@@ -913,8 +915,9 @@ Tile::generateTextureCoordinates(
 
   // Generate texture coordinates for each projection.
   if (!projections.empty()) {
-    const CesiumGeospatial::GlobeRectangle* pRectangle =
-        Cesium3DTiles::Impl::obtainGlobeRectangle(&boundingVolume);
+    //const CesiumGeospatial::GlobeRectangle* pRectangle =
+    //    Cesium3DTiles::Impl::obtainGlobeRectangle(&boundingVolume);
+    const std::optional<GlobeRectangle> pRectangle = getGlobeRectangle(boundingVolume);
     if (pRectangle) {
       for (const std::string& projectionName : projections) {
         Projection projection;

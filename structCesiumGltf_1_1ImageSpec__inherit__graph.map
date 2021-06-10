@@ -1,0 +1,6 @@
+<map id="CesiumGltf::ImageSpec" name="CesiumGltf::ImageSpec">
+<area shape="rect" id="node1" title="Image data used to create a texture. Image can be referenced by URI or bufferView index...." alt="" coords="24,155,199,181"/>
+<area shape="rect" id="node4" href="$structCesiumGltf_1_1Image.html" title="Image data used to create a texture. Image can be referenced by URI or bufferView index...." alt="" coords="40,229,183,256"/>
+<area shape="rect" id="node2" href="$structCesiumGltf_1_1NamedObject.html" title="The base class for objects in a glTF that have a name." alt="" coords="16,80,207,107"/>
+<area shape="rect" id="node3" href="$structCesiumGltf_1_1ExtensibleObject.html" title="The base class for objects in a glTF that have extensions and extras." alt="" coords="5,5,217,32"/>
+</map>

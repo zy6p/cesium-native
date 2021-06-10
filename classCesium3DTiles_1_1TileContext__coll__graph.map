@@ -1,0 +1,4 @@
+<map id="Cesium3DTiles::TileContext" name="Cesium3DTiles::TileContext">
+<area shape="rect" id="node1" title="A context in which a Tileset operates." alt="" coords="5,95,208,121"/>
+<area shape="rect" id="node2" href="$classCesium3DTiles_1_1Tileset.html" title="A 3D Tiles tileset, used for streaming massive heterogeneous 3D geospatial datasets." alt="" coords="21,5,193,32"/>
+</map>

@@ -1,0 +1,4 @@
+<map id="CesiumAsync::CachingAssetAccessor" name="CesiumAsync::CachingAssetAccessor">
+<area shape="rect" id="node1" title="A decorator for an IAssetAccessor that caches requests and responses in an ICacheDatabase." alt="" coords="10,80,217,121"/>
+<area shape="rect" id="node2" href="$classCesiumAsync_1_1IAssetAccessor.html" title="Provides asynchronous access to assets, usually files downloaded via HTTP." alt="" coords="5,5,221,32"/>
+</map>

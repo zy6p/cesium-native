@@ -1,0 +1,4 @@
+<map id="CesiumGeospatial::GeographicProjection" name="CesiumGeospatial::GeographicProjection">
+<area shape="rect" id="node1" title="A map projection where longitude and latitude are mapped using an Ellipsoid." alt="" coords="20,95,243,136"/>
+<area shape="rect" id="node2" href="$classCesiumGeospatial_1_1GlobeRectangle.html" title="A two&#45;dimensional, recangular region on a globe, specified using longitude and latitude coordinates...." alt="" coords="5,5,257,32"/>
+</map>

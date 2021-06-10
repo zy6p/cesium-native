@@ -1,0 +1,4 @@
+<map id="CesiumAsync::ICacheDatabase" name="CesiumAsync::ICacheDatabase">
+<area shape="rect" id="node1" title="Provides database storage interface to cache completed request." alt="" coords="5,5,229,32"/>
+<area shape="rect" id="node2" href="$classCesiumAsync_1_1SqliteCache.html" title="Cache storage using SQLITE to store completed response." alt="" coords="20,80,215,107"/>
+</map>

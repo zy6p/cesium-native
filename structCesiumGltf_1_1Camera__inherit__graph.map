@@ -1,0 +1,5 @@
+<map id="CesiumGltf::Camera" name="CesiumGltf::Camera">
+<area shape="rect" id="node1" title="A camera&#39;s projection. A node can reference a camera to apply a transform to place the camera in the ..." alt="" coords="35,155,188,181"/>
+<area shape="rect" id="node2" href="$structCesiumGltf_1_1NamedObject.html" title="The base class for objects in a glTF that have a name." alt="" coords="16,80,207,107"/>
+<area shape="rect" id="node3" href="$structCesiumGltf_1_1ExtensibleObject.html" title="The base class for objects in a glTF that have extensions and extras." alt="" coords="5,5,217,32"/>
+</map>

@@ -1,0 +1,6 @@
+<map id="CesiumGltf::TextureInfo" name="CesiumGltf::TextureInfo">
+<area shape="rect" id="node1" title="Reference to a texture." alt="" coords="137,80,312,107"/>
+<area shape="rect" id="node3" href="$structCesiumGltf_1_1MaterialNormalTextureInfo.html" title="undefined" alt="" coords="5,155,209,196"/>
+<area shape="rect" id="node4" href="$structCesiumGltf_1_1MaterialOcclusionTextureInfo.html" title="undefined" alt="" coords="234,155,453,196"/>
+<area shape="rect" id="node2" href="$structCesiumGltf_1_1ExtensibleObject.html" title="The base class for objects in a glTF that have extensions and extras." alt="" coords="119,5,331,32"/>
+</map>

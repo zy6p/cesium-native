@@ -1,0 +1,6 @@
+<map id="CesiumGltf::Model" name="CesiumGltf::Model">
+<area shape="rect" id="node1" title="The root object for a glTF asset." alt="" coords="45,247,188,273"/>
+<area shape="rect" id="node2" href="$structCesiumGltf_1_1ModelSpec.html" title="The root object for a glTF asset." alt="" coords="30,171,203,197"/>
+<area shape="rect" id="node3" href="$structCesiumGltf_1_1ExtensibleObject.html" title="The base class for objects in a glTF that have extensions and extras." alt="" coords="5,5,217,32"/>
+<area shape="rect" id="node4" href="$structCesiumGltf_1_1Asset.html" title="Metadata about the glTF asset." alt="" coords="133,81,271,108"/>
+</map>

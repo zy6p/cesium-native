@@ -1,0 +1,4 @@
+<map id="CesiumGltf::AccessorSparseIndices" name="CesiumGltf::AccessorSparseIndices">
+<area shape="rect" id="node1" title="Indices of those attributes that deviate from their initialization value." alt="" coords="9,80,213,121"/>
+<area shape="rect" id="node2" href="$structCesiumGltf_1_1ExtensibleObject.html" title="The base class for objects in a glTF that have extensions and extras." alt="" coords="5,5,217,32"/>
+</map>

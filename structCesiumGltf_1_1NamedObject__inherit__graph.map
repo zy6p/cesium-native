@@ -1,0 +1,20 @@
+<map id="CesiumGltf::NamedObject" name="CesiumGltf::NamedObject">
+<area shape="rect" id="node1" title="The base class for objects in a glTF that have a name." alt="" coords="265,309,456,336"/>
+<area shape="rect" id="node3" href="$structCesiumGltf_1_1AccessorSpec.html" title="A typed view into a bufferView. A bufferView contains raw binary data. An accessor provides a typed v..." alt="" coords="504,5,695,32"/>
+<area shape="rect" id="node5" href="$structCesiumGltf_1_1Animation.html" title="A keyframe animation." alt="" coords="515,56,684,83"/>
+<area shape="rect" id="node6" href="$structCesiumGltf_1_1BufferSpec.html" title="A buffer points to binary geometry, animation, or skins." alt="" coords="513,107,685,133"/>
+<area shape="rect" id="node8" href="$structCesiumGltf_1_1BufferView.html" title="A view into a buffer generally representing a subset of the buffer." alt="" coords="513,157,686,184"/>
+<area shape="rect" id="node9" href="$structCesiumGltf_1_1Camera.html" title="A camera&#39;s projection. A node can reference a camera to apply a transform to place the camera in the ..." alt="" coords="523,208,676,235"/>
+<area shape="rect" id="node10" href="$structCesiumGltf_1_1ImageSpec.html" title="Image data used to create a texture. Image can be referenced by URI or bufferView index...." alt="" coords="512,259,687,285"/>
+<area shape="rect" id="node12" href="$structCesiumGltf_1_1Material.html" title="The material appearance of a primitive." alt="" coords="521,309,677,336"/>
+<area shape="rect" id="node13" href="$structCesiumGltf_1_1Mesh.html" title="A set of primitives to be rendered. A node can contain one mesh. A node&#39;s transform places the mesh i..." alt="" coords="531,360,668,387"/>
+<area shape="rect" id="node14" href="$structCesiumGltf_1_1Node.html" title="A node in the node hierarchy. When the node contains skin, all mesh.primitives must contain JOINTS_0 ..." alt="" coords="531,411,667,437"/>
+<area shape="rect" id="node15" href="$structCesiumGltf_1_1Sampler.html" title="Texture sampler properties for filtering and wrapping modes." alt="" coords="521,461,677,488"/>
+<area shape="rect" id="node16" href="$structCesiumGltf_1_1Scene.html" title="The root nodes of a scene." alt="" coords="529,512,670,539"/>
+<area shape="rect" id="node17" href="$structCesiumGltf_1_1Skin.html" title="Joints and matrices defining a skin." alt="" coords="534,563,665,589"/>
+<area shape="rect" id="node18" href="$structCesiumGltf_1_1Texture.html" title="A texture and its sampler." alt="" coords="524,613,675,640"/>
+<area shape="rect" id="node2" href="$structCesiumGltf_1_1ExtensibleObject.html" title="The base class for objects in a glTF that have extensions and extras." alt="" coords="5,309,217,336"/>
+<area shape="rect" id="node4" href="$structCesiumGltf_1_1Accessor.html" title="A typed view into a bufferView. A bufferView contains raw binary data. An accessor provides a typed v..." alt="" coords="743,5,903,32"/>
+<area shape="rect" id="node7" href="$structCesiumGltf_1_1Buffer.html" title="A buffer points to binary geometry, animation, or skins." alt="" coords="752,107,893,133"/>
+<area shape="rect" id="node11" href="$structCesiumGltf_1_1Image.html" title="Image data used to create a texture. Image can be referenced by URI or bufferView index...." alt="" coords="751,259,894,285"/>
+</map>

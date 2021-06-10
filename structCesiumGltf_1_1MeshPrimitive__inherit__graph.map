@@ -1,0 +1,4 @@
+<map id="CesiumGltf::MeshPrimitive" name="CesiumGltf::MeshPrimitive">
+<area shape="rect" id="node1" title="Geometry to be rendered with the given material." alt="" coords="13,80,209,107"/>
+<area shape="rect" id="node2" href="$structCesiumGltf_1_1ExtensibleObject.html" title="The base class for objects in a glTF that have extensions and extras." alt="" coords="5,5,217,32"/>
+</map>

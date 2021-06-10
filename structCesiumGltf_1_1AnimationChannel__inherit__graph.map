@@ -1,0 +1,4 @@
+<map id="CesiumGltf::AnimationChannel" name="CesiumGltf::AnimationChannel">
+<area shape="rect" id="node1" title="Targets an animation&#39;s sampler at a node&#39;s property." alt="" coords="5,80,228,107"/>
+<area shape="rect" id="node2" href="$structCesiumGltf_1_1ExtensibleObject.html" title="The base class for objects in a glTF that have extensions and extras." alt="" coords="11,5,223,32"/>
+</map>

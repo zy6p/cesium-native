@@ -1,0 +1,4 @@
+<map id="Cesium3DTiles::BingMapsRasterOverlay" name="Cesium3DTiles::BingMapsRasterOverlay">
+<area shape="rect" id="node1" title="A RasterOverlay that uses Bing Maps as the source for the imagery data." alt="" coords="5,80,240,121"/>
+<area shape="rect" id="node2" href="$classCesium3DTiles_1_1RasterOverlay.html" title="The base class for a quadtree&#45;tiled raster image that can be draped over a Tileset." alt="" coords="12,5,233,32"/>
+</map>

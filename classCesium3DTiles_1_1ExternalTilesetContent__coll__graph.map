@@ -1,0 +1,4 @@
+<map id="Cesium3DTiles::ExternalTilesetContent" name="Cesium3DTiles::ExternalTilesetContent">
+<area shape="rect" id="node1" title="Creates a TileContentLoadResult from 3D Tiles external tileset.json data." alt="" coords="5,95,232,136"/>
+<area shape="rect" id="node2" href="$classCesium3DTiles_1_1TileContentLoader.html" title="Can create a TileContentLoadResult from a TileContentLoadInput." alt="" coords="17,5,220,47"/>
+</map>

@@ -1,0 +1,4 @@
+<map id="Cesium3DTiles::CullingVolume" name="Cesium3DTiles::CullingVolume">
+<area shape="rect" id="node1" title="A culling volume, defined by four planes." alt="" coords="5,139,228,165"/>
+<area shape="rect" id="node2" href="$classCesiumGeometry_1_1Plane.html" title="A plane in Hessian Normal Format." alt="" coords="27,5,206,32"/>
+</map>

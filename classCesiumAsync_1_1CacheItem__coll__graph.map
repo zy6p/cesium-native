@@ -1,0 +1,5 @@
+<map id="CesiumAsync::CacheItem" name="CesiumAsync::CacheItem">
+<area shape="rect" id="node1" title="Cache item retrieved from the cache database." alt="" coords="142,95,330,121"/>
+<area shape="rect" id="node2" href="$classCesiumAsync_1_1CacheResponse.html" title="Cache response retrieved from the cache database." alt="" coords="5,5,227,32"/>
+<area shape="rect" id="node3" href="$classCesiumAsync_1_1CacheRequest.html" title="Cache request retrieved from the cache database." alt="" coords="251,5,461,32"/>
+</map>

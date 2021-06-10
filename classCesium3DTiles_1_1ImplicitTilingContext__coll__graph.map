@@ -1,0 +1,5 @@
+<map id="Cesium3DTiles::ImplicitTilingContext" name="Cesium3DTiles::ImplicitTilingContext">
+<area shape="rect" id="node1" title="A tiling context that was created for terrain tiles." alt="" coords="113,109,327,151"/>
+<area shape="rect" id="node2" href="$classCesiumGeometry_1_1QuadtreeTilingScheme.html" title="Defines how a rectangular region is divided into quadtree tiles." alt="" coords="5,5,208,47"/>
+<area shape="rect" id="node3" href="$classCesiumGeometry_1_1QuadtreeTileAvailability.html" title="Manages information about the availability of tiles in a quadtree." alt="" coords="232,5,435,47"/>
+</map>

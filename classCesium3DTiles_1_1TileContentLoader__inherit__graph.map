@@ -1,0 +1,5 @@
+<map id="Cesium3DTiles::TileContentLoader" name="Cesium3DTiles::TileContentLoader">
+<area shape="rect" id="node1" title="Can create a TileContentLoadResult from a TileContentLoadInput." alt="" coords="136,5,339,47"/>
+<area shape="rect" id="node2" href="$classCesium3DTiles_1_1ExternalTilesetContent.html" title="Creates a TileContentLoadResult from 3D Tiles external tileset.json data." alt="" coords="5,95,232,136"/>
+<area shape="rect" id="node3" href="$classCesium3DTiles_1_1GltfContent.html" title="Creates TileContentLoadResult from glTF data." alt="" coords="256,102,459,129"/>
+</map>

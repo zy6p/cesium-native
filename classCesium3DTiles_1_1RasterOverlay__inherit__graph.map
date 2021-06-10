@@ -1,0 +1,6 @@
+<map id="Cesium3DTiles::RasterOverlay" name="Cesium3DTiles::RasterOverlay">
+<area shape="rect" id="node1" title="The base class for a quadtree&#45;tiled raster image that can be draped over a Tileset." alt="" coords="5,78,227,105"/>
+<area shape="rect" id="node2" href="$classCesium3DTiles_1_1BingMapsRasterOverlay.html" title="A RasterOverlay that uses Bing Maps as the source for the imagery data." alt="" coords="275,5,509,47"/>
+<area shape="rect" id="node3" href="$classCesium3DTiles_1_1IonRasterOverlay.html" title="A RasterOverlay that obtains imagery data from Cesium ion." alt="" coords="297,71,487,112"/>
+<area shape="rect" id="node4" href="$classCesium3DTiles_1_1TileMapServiceRasterOverlay.html" title="A RasterOverlay based on tile map service imagery." alt="" coords="278,136,506,177"/>
+</map>

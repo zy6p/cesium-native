@@ -1,0 +1,5 @@
+<map id="CesiumGltf::Node" name="CesiumGltf::Node">
+<area shape="rect" id="node1" title="A node in the node hierarchy. When the node contains skin, all mesh.primitives must contain JOINTS_0 ..." alt="" coords="43,155,179,181"/>
+<area shape="rect" id="node2" href="$structCesiumGltf_1_1NamedObject.html" title="The base class for objects in a glTF that have a name." alt="" coords="16,80,207,107"/>
+<area shape="rect" id="node3" href="$structCesiumGltf_1_1ExtensibleObject.html" title="The base class for objects in a glTF that have extensions and extras." alt="" coords="5,5,217,32"/>
+</map>

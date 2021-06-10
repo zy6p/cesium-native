@@ -1,0 +1,4 @@
+<map id="Cesium3DTiles::TilesetOptions" name="Cesium3DTiles::TilesetOptions">
+<area shape="rect" id="node1" title="Additional options for configuring a Tileset." alt="" coords="5,109,228,136"/>
+<area shape="rect" id="node2" href="$structCesium3DTiles_1_1TilesetContentOptions.html" title="Options for configuring the parsing of a Tileset&#39;s content and construction of Gltf models." alt="" coords="5,5,228,47"/>
+</map>

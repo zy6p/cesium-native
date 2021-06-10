@@ -1,0 +1,4 @@
+<map id="CesiumGeospatial::WebMercatorProjection" name="CesiumGeospatial::WebMercatorProjection">
+<area shape="rect" id="node1" title="The map projection used by Google Maps, Bing Maps, and most of ArcGIS Online, EPSG:3857." alt="" coords="14,95,249,136"/>
+<area shape="rect" id="node2" href="$classCesiumGeospatial_1_1GlobeRectangle.html" title="A two&#45;dimensional, recangular region on a globe, specified using longitude and latitude coordinates...." alt="" coords="5,5,257,32"/>
+</map>

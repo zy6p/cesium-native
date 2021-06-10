@@ -1,0 +1,7 @@
+<map id="CesiumGltf::Buffer" name="CesiumGltf::Buffer">
+<area shape="rect" id="node1" title="A buffer points to binary geometry, animation, or skins." alt="" coords="194,247,335,273"/>
+<area shape="rect" id="node2" href="$structCesiumGltf_1_1BufferSpec.html" title="A buffer points to binary geometry, animation, or skins." alt="" coords="25,157,197,184"/>
+<area shape="rect" id="node3" href="$structCesiumGltf_1_1NamedObject.html" title="The base class for objects in a glTF that have a name." alt="" coords="16,81,207,108"/>
+<area shape="rect" id="node4" href="$structCesiumGltf_1_1ExtensibleObject.html" title="The base class for objects in a glTF that have extensions and extras." alt="" coords="5,5,217,32"/>
+<area shape="rect" id="node5" href="$structCesiumGltf_1_1BufferCesium.html" title="Holds Buffer properties that are specific to the glTF loader rather than part of the glTF spec." alt="" coords="221,157,412,184"/>
+</map>

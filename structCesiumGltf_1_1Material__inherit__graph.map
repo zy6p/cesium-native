@@ -1,0 +1,5 @@
+<map id="CesiumGltf::Material" name="CesiumGltf::Material">
+<area shape="rect" id="node1" title="The material appearance of a primitive." alt="" coords="33,155,189,181"/>
+<area shape="rect" id="node2" href="$structCesiumGltf_1_1NamedObject.html" title="The base class for objects in a glTF that have a name." alt="" coords="16,80,207,107"/>
+<area shape="rect" id="node3" href="$structCesiumGltf_1_1ExtensibleObject.html" title="The base class for objects in a glTF that have extensions and extras." alt="" coords="5,5,217,32"/>
+</map>

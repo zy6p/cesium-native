@@ -1,0 +1,4 @@
+<map id="CesiumGltf::AnimationSampler" name="CesiumGltf::AnimationSampler">
+<area shape="rect" id="node1" title="Combines input and output accessors with an interpolation algorithm to define a keyframe graph (but n..." alt="" coords="5,80,228,107"/>
+<area shape="rect" id="node2" href="$structCesiumGltf_1_1ExtensibleObject.html" title="The base class for objects in a glTF that have extensions and extras." alt="" coords="11,5,223,32"/>
+</map>
